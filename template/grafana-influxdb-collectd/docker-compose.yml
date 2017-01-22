@@ -1,0 +1,42 @@
+version: '2.1'
+
+services:
+  collectd:
+    restart: always
+    image: collectd-fritzbox
+    links:
+     - influxdb
+    volumes:
+      - /etc/collectd/collectd.conf
+      - /var/log/collectd.log
+      - typesvolume:/usr/share/collectd/types.db
+
+  influxdb:
+    restart: always
+    image: influxdb:latest
+    depends_on:
+     collectd:
+     	 condition: service_started    
+    ports:
+      - "18083:8083"
+      - "18088:8088"
+      - "18086:8086"
+      - "25826:25826/udp"
+    volumes:
+      - /var/lib/influxdb
+      - /etc/influxdb/influxdb.conf
+      - typesvolume:/usr/share/collectd/types.db:ro
+
+  grafana:
+    image: grafana/grafana:latest
+    depends_on:
+      influxdb:
+	condition: service_started    
+    links:
+      - influxdb
+    ports:
+      - "13000:3000"
+    volumes:
+      - /var/lib/grafana
+volumes:
+ typesvolume: {}

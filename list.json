@@ -1,5 +1,16 @@
 [
     {
+        "description": "This image contains a sensible default configuration of InfluxDB, Grafana and Collectd.",
+        "repository": "dockerhub",
+        "arch": "amd64",
+        "icon": "http://grafana.org/assets/img/logo_new_transparent_200x48.png",
+        "displayName": "Grafana-InfluxDB-Collectd",
+        "name": "grafana-influxdb-collectd",
+        "version": "0.1",
+        "location": "http://grafana.org/",
+        "type": "app"
+    },
+    {
         "description": "GitLab is a web-based Git repository manager with code reviews, issue tracking, activity feeds and wikis.",
         "repository": "dockerhub",
         "arch": "amd64",
